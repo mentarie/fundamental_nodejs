@@ -4,6 +4,9 @@
 
 const satu = require('./satu'); //ambil langsung dari satu.js
 console.log(satu); //raw
-console.log(satu.cetakNama('ai'), satu.PI, satu.mahasiswa.cetakMhs()); //ambil objectnya
-
-
+console.log(
+    satu.cetakNama('ai'), 
+    satu.PI, 
+    satu.mahasiswa.cetakMhs(),
+    new satu.Orang()
+); //bisa ambil fungsi, variabel, object, bahkan kelas

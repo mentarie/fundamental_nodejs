@@ -18,6 +18,21 @@ class Orang{
     }
 }
 
-module.exports.cetakNama = cetakNama; //function ini akan dikirimkan kepada file manapun yg require dia
-module.exports.PI = PI;
-module.exports.mahasiswa = mahasiswa;
+
+//Eksport satu-satu
+// module.exports.cetakNama = cetakNama; //function ini akan dikirimkan kepada file manapun yg require dia
+// module.exports.PI = PI;
+// module.exports.mahasiswa = mahasiswa;
+// module.exports.Orang = Orang;
+
+
+// Eksport sekaligus
+// module.exports = {
+//     cetakNama: cetakNama,
+//     PI: PI,
+//     mahasiswa: mahasiswa,
+//     Orang: Orang
+// }
+
+
+// Eksport
