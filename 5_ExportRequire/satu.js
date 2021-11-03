@@ -35,4 +35,5 @@ class Orang{
 // }
 
 
-// Eksport
+// Eksport sekaligus dengan ES6
+module.exports = {cetakNama, PI, mahasiswa, Orang};
