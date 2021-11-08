@@ -40,6 +40,8 @@ const rl = readline.createInterface({
 });
 // Buat pertanyaannya
 rl.question('Suka makan apa? ', (answer) => {
-    console.log(`Ternyata suka ${answer}`);
+     rl.question('Mau minum apa? ', (answer2) => {
+         console.log(`Ternyata suka ${answer} dan minum ${answer2}.`);
+     })
     rl.close();
 });
