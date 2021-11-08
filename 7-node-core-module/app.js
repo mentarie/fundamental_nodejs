@@ -39,9 +39,27 @@ const rl = readline.createInterface({
     output: process.stdout
 });
 // Buat pertanyaannya
-rl.question('Suka makan apa? ', (answer) => {
-     rl.question('Mau minum apa? ', (answer2) => {
-         console.log(`Ternyata suka ${answer} dan minum ${answer2}.`);
+rl.question('Suka makan apa? ', (makan) => {
+     rl.question('Mau minum apa? ', (minum) => {
+         console.log(`Ternyata suka ${makan} dan minum ${minum}.`);
+
+        //  masukkan dalam object
+        const favorit = {
+            makan: makan,
+            minum: minum
+        }
+        // simpan ke file sementara (buffer) dan cek isi file contact.json dulu karena dia masih string
+        const file = fs.readFileSync('data/contact.json', 'utf8');
+        
+        // kita parse object kita jadi json
+        var favorits = JSON.parse(file);
+
+        // kita push data kita
+        favorits.push(favorit);
+
+        // sedangkan untuk favorit.json, filenya kita tulis sebagai string
+        fs.writeFileSync('data/favorit.js', JSON.stringify(favorits));
+        
+         rl.close();
      })
-    rl.close();
 });
