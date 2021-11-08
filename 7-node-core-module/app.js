@@ -49,7 +49,7 @@ rl.question('Suka makan apa? ', (makan) => {
             minum: minum
         }
         // simpan ke file sementara (buffer) dan cek isi file contact.json dulu karena dia masih string
-        const file = fs.readFileSync('data/contact.json', 'utf8');
+        const file = fs.readFileSync('data/favorits.json', 'utf8');
         
         // kita parse object kita jadi json
         var favorits = JSON.parse(file);
@@ -58,7 +58,7 @@ rl.question('Suka makan apa? ', (makan) => {
         favorits.push(favorit);
 
         // sedangkan untuk favorit.json, filenya kita tulis sebagai string
-        fs.writeFileSync('data/favorit.js', JSON.stringify(favorits));
+        fs.writeFileSync('data/favorits.js', JSON.stringify(favorits));
         
          rl.close();
      })
