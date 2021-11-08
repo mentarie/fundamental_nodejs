@@ -58,7 +58,7 @@ rl.question('Suka makan apa? ', (makan) => {
         favorits.push(favorit);
 
         // sedangkan untuk favorit.json, filenya kita tulis sebagai string
-        fs.writeFileSync('data/favorits.js', JSON.stringify(favorits));
+        fs.writeFileSync('data/favorits.json', JSON.stringify(favorits));
         
          rl.close();
      })
