@@ -17,21 +17,26 @@ if(!fs.existsSync(dataPath)){
 fs.writeFileSync(dataPath, '[]', 'utf-8'); //bikin file, array kosong, string
 }
 
-rl.question('Nama kamu? ', (nama) => {
-     rl.question('Nomor telepon? ', (noHP) => {
-         const contact = {
-            nama,
-            noHP
-        };
-        
-        const file = fs.readFileSync('data/contacts.json', 'utf8');
-        
-        var contacts = JSON.parse(file);
+const tulisPertanyaan = (pertanyaan) => { //buat promise untuk pakai async-await
+    return new Promise((resolve, reject) => {
+        rl.question('Nama Anda? ', (nama) => {
+            resolve(nama);
+        });
+    })
+}
 
-        contacts.push(contact);
+const main = async () => { //menangkap jawaban dan mengirimkan ke json
+    const nama = await pertanyaan1('Nama Anda? ');
+    const email = await pertanyaan2('Alamat Email? ');
 
-        fs.writeFileSync('data/contacts.json', JSON.stringify(contacts));
-        
-        rl.close();
-     })
-});
+    const contact = {
+        nama,
+        email
+    };
+    const file = fs.readFileSync('data/contacts.json', 'utf8');
+    var contacts = JSON.parse(file);
+    
+    contacts.push(contact);
+}
+
+main();
