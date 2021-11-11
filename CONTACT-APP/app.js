@@ -1,11 +1,33 @@
-const {tulisPertanyaan, simpanContact} = require('./contacts.js');
+const yargs = require('yargs');
 
-const main = async () => { //menangkap jawaban dan mengirimkan ke json
-    const nama = await tulisPertanyaan('Nama Anda? ');
-    const email = await tulisPertanyaan('Alamat Email? ');
-    const noHP = await tulisPertanyaan('No HP? ');
+yargs.command({ //ketika perintah add dijalankan, maka kita akan mengisi:
+    command: 'add', 
+    describe: 'Menambahkan kontak baru', 
+    builder: {
+        nama: {
+            describe: 'Nama Lengkap',
+            demandOption: true,
+            type: 'string',
+        },
+        email: {
+            describe: 'Email',
+            demandOption: false,
+            type: 'string',
+        },
+        noHP: {
+            describe: 'Nomor HP',
+            demandOption: true,
+            type: 'string',
+        },
+    }, 
+    handler(argv){
+        const contact = {
+            nama: argv.nama,
+            email: argv.email,
+            noHP: argv.noHP
+        };
+        console.log(contact);
+    }
+});
 
-    simpanContact(nama,email,noHP);
-}
-
-main();
+yargs.parse();
