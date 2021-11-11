@@ -1,4 +1,5 @@
 const yargs = require('yargs');
+const contacts = require('./contacts');
 
 yargs.command({ //ketika perintah add dijalankan, maka kita akan mengisi:
     command: 'add', 
@@ -21,12 +22,7 @@ yargs.command({ //ketika perintah add dijalankan, maka kita akan mengisi:
         },
     }, 
     handler(argv){
-        const contact = {
-            nama: argv.nama,
-            email: argv.email,
-            noHP: argv.noHP
-        };
-        console.log(contact);
+        contacts.simpanContact(argv.nama,argv.email,argv.noHP);
     }
 });
 
