@@ -8,6 +8,11 @@ app.get('/', (req, res) => { //"jika ada request ke halaman /"
     //     email: 'ai@mail.com',
     //     noHP: '0834526371'
     // })
+    res.sendFile('./index.html', {root: __dirname})
+})
+
+app.get('/product/:id', (req,res) => {
+    res.send(`Product ID : ${req.params.id} <br> Category ID : ${req.query.category}`) //productid pakai params, idcategory pakai , contoh: http://localhost:3000/product/20?category=shoes
 })
 
 app.listen(port, () => {
