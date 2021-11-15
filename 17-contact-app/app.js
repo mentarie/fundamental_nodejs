@@ -74,7 +74,12 @@ app.post('/contact', [
 (req,res) => {
     const error = validationResult(req)
     if (!error.isEmpty()) {
-        return res.status(400).json({ error: error.array() });
+        // return res.status(400).json({ error: error.array() });
+        res.render('add-contact', {
+            title: 'Form Tambah Data Contact',
+            layout: 'layouts/main-layout',
+            error: error.array()
+        })
     }
 
     // res.send(req.body)//buat lihat json yang terkirim
