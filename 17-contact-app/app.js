@@ -80,11 +80,11 @@ app.post('/contact', [
             layout: 'layouts/main-layout',
             error: error.array()
         })
+    } else {
+        // res.send(req.body)//buat lihat json yang terkirim
+        addContacts(req.body)
+        res.redirect('/contact')
     }
-
-    // res.send(req.body)//buat lihat json yang terkirim
-    // addContacts(req.body)
-    // res.redirect('/contact')
 })
 
 // halaman detail contact
