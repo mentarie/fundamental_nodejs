@@ -22,4 +22,20 @@ const detailContact = (nama) => {
     return contact
 };
 
-module.exports = {loadContact, detailContact}
+const saveContact = (contacts) => {
+    fs.writeFileSync('data/contacts.json', JSON.stringify(contacts))
+    console.log('Contact tersimpan')
+}
+
+const addContacts = (contact) => {
+    const contacts = loadContact()
+    contacts.push(contact)
+    saveContact(contacts)
+}
+
+const cekDuplikat = (nama) => {
+    const contacts = loadContact()
+    return contacts.find((contact) => contact.nama === nama)
+}
+
+module.exports = {loadContact, detailContact, addContacts, cekDuplikat}
