@@ -1,10 +1,12 @@
-<h1>Data Mahasiswa</h1>
-<% if (mahasiswa.length < 1) { %>
-    <p>Data Mahasiswa kosong</p>
-<% } %>
-<% mahasiswa.forEach(mhs => { %>
-    <ul>
-        <li>Nama: <%= mhs.nama %> </li>
-        <li>Email: <%= mhs.email %> </li>
-    </ul>
-<% }) %>
+<div class="container mt-3">
+    <h1>Data Mahasiswa</h1>
+    <% if (mahasiswa.length < 1) { %>
+        <p>Data Mahasiswa kosong</p>
+    <% } %>
+    <% mahasiswa.forEach(mhs => { %>
+        <ul>
+            <li>Nama: <%= mhs.nama %> </li>
+            <li>Email: <%= mhs.email %> </li>
+        </ul>
+    <% }) %>
+</div>
