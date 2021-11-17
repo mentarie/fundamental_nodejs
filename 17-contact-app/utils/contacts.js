@@ -40,13 +40,12 @@ const cekDuplikat = (nama) => {
 
 const deleteContact = (nama) => {
     const contacts = loadContact()
-    const mewContacts = contacts.filter((contact) => contact.nama !== nama)
-    if (contacts.length === newContacts) {
-        console.log('Nama tidak ditemukan')
-    } return false
+    const newContacts = contacts.filter((contact) => contact.nama !== nama)
+    // if (contacts.length === newContacts) {
+    //     console.log('Nama tidak ditemukan')
+    // } return false
 
-    fs.writeFileSync('data/contacts.json', JSON.stringify(newContacts));
-    console.log(`Contact ${nama} berhasil dihapus`);
+    saveContact(newContacts)
 }
 
 module.exports = {loadContact, detailContact, addContacts, cekDuplikat, deleteContact}

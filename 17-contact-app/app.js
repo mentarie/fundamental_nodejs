@@ -101,7 +101,6 @@ app.post('/contact', [
 
         // kirimkan flash msg
         req.flash('msg', 'Data contact berhasil ditambahkan!')
-
         res.redirect('/contact')
     }
 })
@@ -116,7 +115,21 @@ app.get('/contact/delete/:nama', (req, res) => {
         res.send('<h4>404</h4>')
     } else {
         deleteContact(req.params.nama)
+
+        // kirimkan flash msg
+        req.flash('msg', 'Data contact berhasil dihapus!')
+        res.redirect('/contact')
     }
+})
+
+// form ubah data contact
+app.get('/contact/:nama', (req, res) => {
+    const contact = detailContact(req.params.nama)
+    res.render('edit-contact', {
+        title: 'Form Edit Data Kontak',
+        layout: 'layouts/main-layout',
+        contact,
+    })
 })
 
 // halaman detail contact
