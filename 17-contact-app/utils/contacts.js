@@ -48,4 +48,13 @@ const deleteContact = (nama) => {
     saveContact(newContacts)
 }
 
-module.exports = {loadContact, detailContact, addContacts, cekDuplikat, deleteContact}
+const updateContacts = (contactBaru) => {
+    const contacts = loadContact()
+    const newContacts = contacts.filter((contact) => contact.nama !== contactBaru.oldNama)
+    delete contactBaru.oldNama //hapus properti oldnama
+
+    newContacts.push(contactBaru)
+    saveContact(newContacts)
+}
+
+module.exports = {loadContact, detailContact, addContacts, cekDuplikat, deleteContact, updateContacts}

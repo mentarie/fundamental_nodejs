@@ -1,6 +1,6 @@
 const express = require('express')
 const expressLayouts = require('express-ejs-layouts')
-const {loadContact, detailContact, addContacts, cekDuplikat, deleteContact} = require('./utils/contacts')
+const {loadContact, detailContact, addContacts, cekDuplikat, deleteContact, updateContacts} = require('./utils/contacts')
 const {body, validationResult, check} = require('express-validator')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
@@ -130,6 +130,37 @@ app.get('/contact/:nama', (req, res) => {
         layout: 'layouts/main-layout',
         contact,
     })
+})
+
+// Proses ubah data
+app.post('/contact/update', [
+    body('nama').custom((value, {req}) => { //req disini biar body. nama kita bisa akses request juga 
+        const duplikat = cekDuplikat(value)
+        if (value !== req.body.oldNama && duplikat) {
+            throw new Error('Nama contact sudah digunakan!')
+        } return true
+    }),
+    check('email', 'Email tidak valid!').isEmail(),
+    check('nohp', 'Nomor HP tidak valid!').isMobilePhone('id-ID'),
+], 
+(req,res) => {
+    const error = validationResult(req)
+    if (!error.isEmpty()) {
+        // return res.status(400).json({ error: error.array() });
+        res.render('edit-contact', {
+            title: 'Form Edit Data Contact',
+            layout: 'layouts/main-layout',
+            error: error.array(),
+            contact: req.body
+        })
+    } else {
+        // res.send(req.body)//buat lihat json yang terkirim
+        updateContacts(req.body)
+
+        // kirimkan flash msg
+        req.flash('msg', 'Data contact berhasil diubah!')
+        res.redirect('/contact')
+    }
 })
 
 // halaman detail contact
