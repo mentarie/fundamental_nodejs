@@ -1,3 +1,4 @@
+const { ObjectID } = require('bson');
 const { MongoClient} = require('mongodb')
 
 const uri = 'mongodb://127.0.0.1:27017'
@@ -49,14 +50,52 @@ client.connect((error, client) => {
     //     }
     // ])
 
-    // read data
-    console.log(
-        db
-            .collection('mahasiswa')
-            .find()
-            .toArray((error, result) => {
-                console.log(result)
-            })
+    // // read data berdasarkan kriteria
+    // console.log(
+    //     db
+    //         .collection('mahasiswa')
+    //         .find({name: 'Fadhlan', _id: ObjectID('619a18375882ec44007c2ba0')})
+    //         .toArray((error, result) => {
+    //             console.log(result)
+    //         })
+    // )
+
+    // // mengubah data
+    // const updatePromise = 
+    //     db
+    //     .collection('mahasiswa')
+    //     .updateOne(
+    //         {
+    //             _id: ObjectID('619a18375882ec44007c2ba0')
+    //         },
+    //         {
+    //             $set: {
+    //                 name: 'Fadhlan H'
+    //             },
+    //         }
+    //     )
+    
+    // updatePromise
+    //     .then(result => {
+    //         console.log(result)
+    //     })
+    //     .catch(error => {
+    //         console.log(error)
+    //     })
+
+    //  menghapus 1 data
+    db
+        .collection('mahasiswa')
+        .deleteOne(
+            {
+                _id: ObjectID('619a0dc47100203204b2fff0')
+            }
         )
+        .then(result => {
+            console.log(result)
+        })
+        .catch(error => {
+            console.log(error)
+        })
 })
 
