@@ -17,7 +17,7 @@ client.connect((error, client) => {
     // pilih database
     const db = client.db(dbName)
     
-    // menambahkan 1 data ke collection mahasiswa
+    // // menambahkan 1 data ke collection mahasiswa
     // db.collection('mahasiswa').insertOne(
     //     {
     //         name: 'Lalisa',
@@ -31,22 +31,32 @@ client.connect((error, client) => {
     //     }
     // )
 
-    // menambahkan lebih dari 1 data
-    db.collection('mahasiswa').insertMany([
-        {
-            name: 'Mentari',
-            email: 'mentari@mail.com'
-        },
-        {
-            name: 'Fadhlan',
-            email: 'fadhlan@mail.com'
-        },
-        (error, result) => {
-            if (error) {
-                return console.log('Gagal menambahkan data banyak!')
-            }
-            console.log(result)
-        }
-    ])
+    // // menambahkan lebih dari 1 data
+    // db.collection('mahasiswa').insertMany([
+    //     {
+    //         name: 'Mentari',
+    //         email: 'mentari@mail.com'
+    //     },
+    //     {
+    //         name: 'Fadhlan',
+    //         email: 'fadhlan@mail.com'
+    //     },
+    //     (error, result) => {
+    //         if (error) {
+    //             return console.log('Gagal menambahkan data banyak!')
+    //         }
+    //         console.log(result)
+    //     }
+    // ])
+
+    // read data
+    console.log(
+        db
+            .collection('mahasiswa')
+            .find()
+            .toArray((error, result) => {
+                console.log(result)
+            })
+        )
 })
 
