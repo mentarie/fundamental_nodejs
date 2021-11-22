@@ -115,6 +115,22 @@ app.post('/contact',
     }
 )
 
+// halaman delete
+app.get('/contact/delete/:nama', async (req, res) => {
+    const contact = await Contact.findOne({nama: req.params.nama})
+    // jika contact tidak ada
+    if (!contact) {
+        res.status(404)
+        res.send('<h4>404</h4>')
+    } else {
+        Contact.deleteOne({_id: contact._id}).then( (result) => {
+            // kirimkan flash msg
+            req.flash('msg', 'Data contact berhasil dihapus!')
+            res.redirect('/contact')
+        })
+    }
+})
+
 // Halaman detail contact
 app.get('/contact/:nama', async (req, res) => {
     const contact = await Contact.findOne({nama: req.params.nama})
