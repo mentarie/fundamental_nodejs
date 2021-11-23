@@ -120,21 +120,55 @@ app.post('/contact',
     }
 )
 
+// form ubah data contact
+app.get('/contact/:nama', async (req, res) => {
+    const contact = await Contact.findOne({nama: req.params.nama})
+    res.render('edit-contact', {
+        title: 'Form Edit Data Kontak',
+        layout: 'layouts/main-layout',
+        contact,
+    })
+})
+
+// Proses ubah data
+app.put('/contact', [
+    body('nama').custom(async (value, {req}) => { //req disini biar body. nama kita bisa akses request juga 
+        const duplikat = await Contact.findOne({nama: value})
+        if (value !== req.body.oldNama && duplikat) {
+            throw new Error('Nama contact sudah digunakan!')
+        } return true
+    }),
+    check('email', 'Email tidak valid!').isEmail(),
+    check('nohp', 'Nomor HP tidak valid!').isMobilePhone('id-ID'),
+], 
+(req,res) => {
+    const error = validationResult(req)
+    if (!error.isEmpty()) {
+        res.render('edit-contact', {
+            title: 'Form Edit Data Contact',
+            layout: 'layouts/main-layout',
+            error: error.array(),
+            contact: req.body
+        })
+    } else {
+        Contact.updateOne(
+            { _id: req.body._id },
+            {
+                $set: {
+                    nama:req.body.nama,
+                    email:req.body.email,
+                    nohp: req.body.nohp
+                }
+            }
+        ).then(result => {
+            // kirimkan flash msg
+            req.flash('msg', 'Data contact berhasil diubah!')
+            res.redirect('/contact')
+        })
+    }
+})
+
 // halaman delete
-// app.get('/contact/delete/:nama', async (req, res) => {
-//     const contact = await Contact.findOne({nama: req.params.nama})
-//     // jika contact tidak ada
-//     if (!contact) {
-//         res.status(404)
-//         res.send('<h4>404</h4>')
-//     } else {
-//         Contact.deleteOne({_id: contact._id}).then( (result) => {
-//             // kirimkan flash msg
-//             req.flash('msg', 'Data contact berhasil dihapus!')
-//             res.redirect('/contact')
-//         })
-//     }
-// })
 app.delete('/contact/', (req, res) => {
     Contact.deleteOne({nama: req.body.nama}).then( (result) => {
         // kirimkan flash msg
